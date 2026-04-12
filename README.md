@@ -4,7 +4,7 @@
 <img src="https://img.shields.io/badge/Sponsor-Luminous%20Power%20Technologies-orange?style=for-the-badge" />
 <img src="https://img.shields.io/badge/Track-Industrial%20AI-green?style=for-the-badge" />
 
-# ⚡ ARIA
+#  ARIA
 ### Adaptive Relay Intelligence & Anomaly System
 
 **Predicting inverter relay failure before it happens — using physics, ML, and a production-grade RAG copilot.**
