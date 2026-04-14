@@ -48,7 +48,7 @@ ARIA solves this with physics-informed machine learning and a generative AI diag
 
 ---
 
-## Why ARIA Is Different
+## Why RelayIQ Is Different
 
 Most solutions count switching cycles. ARIA models the actual physics.
 
