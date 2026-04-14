@@ -4,7 +4,7 @@
 <img src="https://img.shields.io/badge/Sponsor-Luminous%20Power%20Technologies-orange?style=for-the-badge" />
 <img src="https://img.shields.io/badge/Track-Industrial%20AI-green?style=for-the-badge" />
 
-#  ARIA
+#  RelayIQ - https://inverter-relay-failu-m4po.bolt.host/
 ### Adaptive Relay Intelligence & Anomaly System
 
 **Predicting inverter relay failure before it happens — using physics, ML, and a production-grade RAG copilot.**
@@ -22,7 +22,7 @@
 ## Table of Contents
 
 1. [The Problem](#the-problem)
-2. [Why ARIA Is Different](#why-aria-is-different)
+2. [Why RelayIQ Is Different](#why-RelayIQ-is-different)
 3. [System Architecture](#system-architecture)
 4. [The Five Notebooks](#the-five-notebooks)
 5. [The RAG Copilot — Our Secret Weapon](#the-rag-copilot--our-secret-weapon)
@@ -453,83 +453,6 @@ The `visual_label` column generated in Notebook 1 (`new`, `mild_pitting`, `moder
 - The top feature by importance is `arc_sum_72h` — validating that cumulative arc energy, not cycle count, is the true predictor
 - The Isolation Forest flags the contact welding signature (high arc spike + near-zero bounce time + anomaly) independently of the gradual degradation models
 
----
-
-## Quick Start
-
-### Prerequisites
-
-```bash
-Python 3.10+
-Node.js 18+
-```
-
-### 1. Clone and install
-
-```bash
-git clone https://github.com/your-username/aria-relay-intelligence
-cd aria-relay-intelligence
-pip install numpy pandas scikit-learn joblib matplotlib
-```
-
-### 2. Run the notebooks in order
-
-```bash
-# Generate synthetic data
-jupyter nbconvert --to notebook --execute NB1_Synthetic_Data_Generator.ipynb
-
-# Train models
-jupyter nbconvert --to notebook --execute NB2_ML_Training.ipynb
-
-# Build RAG knowledge base
-jupyter nbconvert --to notebook --execute NB3_RAG_Copilot.ipynb
-```
-
-### 3. Start the API server
-
-```bash
-pip install fastapi uvicorn pydantic
-python notebook4_api_server.py --server
-# → http://localhost:8000/docs
-```
-
-### 4. Start the React app
-
-```bash
-cd aria-app
-npm install
-npm run dev
-# → http://localhost:5173
-```
-
-### 5. Connect app to server
-
-In `aria-app/src/App.jsx`, change:
-
-```js
-const API_MODE = true;                    // was false
-const API_BASE = "http://localhost:8000";
-```
-
-### Production swap: connect your RAG project
-
-In `notebook3_rag_copilot.py`, find the four `[SWAP_RAG]` markers and replace:
-
-```python
-# [SWAP_RAG 1] — Retriever
-retriever = YourRAGRetriever(docs)  # your Supabase + pgvector + RRF
-
-# [SWAP_RAG 2] — PDF ingestion
-ingest_pdf_datasheet(path)  # your Celery worker pipeline
-
-# [SWAP_RAG 3] — Image understanding
-analyse_relay_image(image_path)  # your GPT-4V vision model
-
-# [SWAP_RAG 4] — Generation
-your_agent.generate(prompt, context)  # your multi-agent with SSE
-```
-
----
 
 ## Project Structure
 
@@ -584,33 +507,12 @@ aria-relay-intelligence/
 └── README.md
 ```
 
----
+Notebook 1 - Synthetic Data Generator - https://colab.research.google.com/drive/1DF1I30laO590-f8srJ0WMMYgq2qAabtB?authuser=1#scrollTo=c43982
+Notebook 2 - ML Models application - LightGBM,LSTM,XGBoost,Isolation Forest - https://colab.research.google.com/drive/1MOtWTK8XbVubblatsMTOKEr-ykmuz7HD?authuser=1#scrollTo=c20971
+Notebook 3 - RAG Application and code - https://colab.research.google.com/drive/1_K6vbYnO-HNVbFSEBc7gxnVZtxokNoZM?authuser=1#scrollTo=c80489
+Notebook 4 - FastAPI Backend Application - https://colab.research.google.com/drive/19n8g48-FZOW-_N0ldYlPxxZRbLrLfQcK?authuser=1#scrollTo=c68298
+Frontend - Bolt Frontend
 
-## The Evaluation Criteria — How ARIA Scores
-
-**Round 1 — Approach and Design**
-
-| Criterion | ARIA's answer |
-|---|---|
-| Physics-grounded wear model | I² arc energy + Arrhenius — backed by relay datasheet specs |
-| Multi-variable RUL estimation | 38 features including power quality, temp, bounce, arc energy, load % |
-| Edge + cloud architecture | Firmware (C++) + MQTT + FastAPI + React — complete stack |
-| Early warning system | HI < 60 → yellow, < 30 → orange, < 10 → red, at edge and cloud |
-| Cloud/server estimation | MODBUS → MQTT → Kafka → TimescaleDB → ML → RAG → REST API |
-| Mobile app | React PWA with homeowner + engineer + simulator screens |
-
-**Round 2 — Accuracy of Prototype**
-
-| Metric | Value |
-|---|---|
-| Cross-scenario MAE | ~15–25 days (honest estimate) |
-| Conformal coverage | 90% (mathematically guaranteed) |
-| Anomaly detection (red-alert) | 64.5% |
-| Failure modes classified | 4 distinct types with distinct actions |
-| RAG report quality | Sourced from datasheets + field cases |
-| Live demo | API server + React app + MQTT simulation |
-
----
 
 <div align="center">
 
